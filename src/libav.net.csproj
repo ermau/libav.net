@@ -45,6 +45,7 @@
     <Compile Include="AVFormatContext.cs" />
     <Compile Include="AVFormatParameters.cs" />
     <Compile Include="AVInputFormat.cs" />
+    <Compile Include="AVMetadataTag.cs" />
     <Compile Include="AVOutputFormat.cs" />
     <Compile Include="AVPacket.cs" />
     <Compile Include="AVProbeData.cs" />
