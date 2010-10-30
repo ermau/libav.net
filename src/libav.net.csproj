@@ -51,6 +51,7 @@
     <Compile Include="AVProbeData.cs" />
     <Compile Include="AVRational.cs" />
     <Compile Include="ByteIOContext.cs" />
+    <Compile Include="Helpers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
