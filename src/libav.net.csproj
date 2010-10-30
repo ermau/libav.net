@@ -49,6 +49,7 @@
     <Compile Include="AVOutputFormat.cs" />
     <Compile Include="AVPacket.cs" />
     <Compile Include="AVProbeData.cs" />
+    <Compile Include="AVRational.cs" />
     <Compile Include="ByteIOContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
