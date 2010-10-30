@@ -39,12 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AVChapter.cs" />
     <Compile Include="AVClass.cs" />
     <Compile Include="AVCodec.cs" />
     <Compile Include="AVFormat.cs" />
     <Compile Include="AVFormatContext.cs" />
     <Compile Include="AVFormatParameters.cs" />
     <Compile Include="AVInputFormat.cs" />
+    <Compile Include="AVMetadata.cs" />
     <Compile Include="AVMetadataTag.cs" />
     <Compile Include="AVOutputFormat.cs" />
     <Compile Include="AVPacket.cs" />
