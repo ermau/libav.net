@@ -14,7 +14,7 @@ namespace libavnet
 	public delegate int read_header ([MarshalAs (UnmanagedType.LPStruct)] out AVFormatContext context, [MarshalAs (UnmanagedType.LPStruct)] ref AVFormatParameters ap);
 
 	[StructLayout (LayoutKind.Sequential)]
-	public struct AVInputFormat
+	public class AVInputFormat
 	{
 		/// <summary>
 		/// A comma separated list of short names for the format.

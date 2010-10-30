@@ -39,12 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AVClass.cs" />
     <Compile Include="AVCodec.cs" />
     <Compile Include="AVFormat.cs" />
     <Compile Include="AVFormatContext.cs" />
     <Compile Include="AVFormatParameters.cs" />
     <Compile Include="AVInputFormat.cs" />
+    <Compile Include="AVOutputFormat.cs" />
+    <Compile Include="AVPacket.cs" />
     <Compile Include="AVProbeData.cs" />
+    <Compile Include="ByteIOContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
