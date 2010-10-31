@@ -11,9 +11,14 @@ namespace libavnet
 		public IntPtr buf_end;
 		public IntPtr opaque;
 
-		public Func<int, IntPtr, IntPtr, int> read_packet;
-		public Func<int, IntPtr, IntPtr, int> write_packet;
-		public Func<long, IntPtr, long, int> seek;
+		public delegate int read_packet_delegate(IntPtr opaque, IntPtr buf, int buf_size);
+		public read_packet_delegate read_packet;
+
+		public delegate int write_packet_delegate (IntPtr opaque, IntPtr buf, int buf_size);
+		public write_packet_delegate write_packet;
+
+		public delegate int seek_delegate (IntPtr opaque, long offset, int whence);
+		public seek_delegate seek;
 
 		public long pos;
 		[MarshalAs (UnmanagedType.Bool)]
@@ -30,10 +35,15 @@ namespace libavnet
 		public ulong checksum;
 		public IntPtr checksum_ptr;
 
-		public Func<ulong, IntPtr, uint, long> update_checksum;
+		public delegate ulong update_checksum_delegate (ulong checksum, IntPtr buf, int size);
+		public update_checksum_delegate update_checksum;
 
 		public int error;
 
-		public Func<int, IntPtr, int, long, int> read_pause;
+		public delegate int read_pause_delegate (IntPtr opaque, int pause);
+		public read_pause_delegate read_pause;
+
+		public delegate long read_seek_delegate (IntPtr opaque, int stream_index, long timestamp, int flags);
+		public read_seek_delegate read_seek;
 	}
 }
