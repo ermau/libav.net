@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="FFmpeg\AVBitStreamFilter.cs" />
     <Compile Include="FFmpeg\AVBitStreamFilterContext.cs" />
     <Compile Include="FFmpeg\AVClass.cs" />
