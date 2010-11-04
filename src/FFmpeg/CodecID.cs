@@ -1,4 +1,28 @@
-﻿namespace libavnet
+﻿//
+// MIT License
+// Copyright ©2003-2006 Tao Framework Team
+// Copyright ©2010 Eric Maupin
+// All rights reserved.
+
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
+namespace libavnet
 {
 	public enum CodecID
 	{
@@ -98,8 +122,6 @@
 		CODEC_ID_VP5,
 		CODEC_ID_VP6,
 		CODEC_ID_VP6F,
-
-		/* various pcm "codecs" */
 		CODEC_ID_PCM_S16LE = 0x10000,
 		CODEC_ID_PCM_S16BE,
 		CODEC_ID_PCM_U16LE,
@@ -117,7 +139,6 @@
 		CODEC_ID_PCM_U24LE,
 		CODEC_ID_PCM_U24BE,
 		CODEC_ID_PCM_S24DAUD,
-
 		/* various adpcm codecs */
 		CODEC_ID_ADPCM_IMA_QT = 0x11000,
 		CODEC_ID_ADPCM_IMA_WAV,
@@ -137,21 +158,17 @@
 		CODEC_ID_ADPCM_SBPRO_4,
 		CODEC_ID_ADPCM_SBPRO_3,
 		CODEC_ID_ADPCM_SBPRO_2,
-
 		/* AMR */
 		CODEC_ID_AMR_NB = 0x12000,
 		CODEC_ID_AMR_WB,
-
 		/* RealAudio codecs*/
 		CODEC_ID_RA_144 = 0x13000,
 		CODEC_ID_RA_288,
-
 		/* various DPCM codecs */
 		CODEC_ID_ROQ_DPCM = 0x14000,
 		CODEC_ID_INTERPLAY_DPCM,
 		CODEC_ID_XAN_DPCM,
 		CODEC_ID_SOL_DPCM,
-
 		CODEC_ID_MP2 = 0x15000,
 		CODEC_ID_MP3, /* prefered ID for MPEG Audio layer 1, 2 or3 decoding */
 		CODEC_ID_AAC,
@@ -180,13 +197,8 @@
 		CODEC_ID_TTA,
 		CODEC_ID_SMACKAUDIO,
 		CODEC_ID_QCELP,
-
-		/* subtitle codecs */
 		CODEC_ID_DVD_SUBTITLE = 0x17000,
 		CODEC_ID_DVB_SUBTITLE,
-
 		CODEC_ID_MPEG2TS = 0x20000,
-		/* _FAKE_ codec to indicate a raw MPEG2 transport
-						 stream (only used by libavformat) */
-	};
+	}
 }

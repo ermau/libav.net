@@ -16,12 +16,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;FF_API_OLD_METADATA  FF_API_LAVF_UNUSED FF_API_MAX_STREAMS</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -39,23 +40,49 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AVChapter.cs" />
-    <Compile Include="AVClass.cs" />
-    <Compile Include="AVCodec.cs" />
-    <Compile Include="AVFormat.cs" />
-    <Compile Include="AVFormatContext.cs" />
-    <Compile Include="AVFormatParameters.cs" />
-    <Compile Include="AVInputFormat.cs" />
-    <Compile Include="AVMetadata.cs" />
-    <Compile Include="AVMetadataTag.cs" />
-    <Compile Include="AVOutputFormat.cs" />
-    <Compile Include="AVPacket.cs" />
-    <Compile Include="AVProbeData.cs" />
-    <Compile Include="AVRational.cs" />
-    <Compile Include="ByteIOContext.cs" />
-    <Compile Include="CodecID.cs" />
+    <Compile Include="FFmpeg\AVBitStreamFilter.cs" />
+    <Compile Include="FFmpeg\AVBitStreamFilterContext.cs" />
+    <Compile Include="FFmpeg\AVClass.cs" />
+    <Compile Include="FFmpeg\AVCodec.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FFmpeg\AVCodecContext.cs" />
+    <Compile Include="FFmpeg\AVCodecParser.cs" />
+    <Compile Include="FFmpeg\AVCodecParserContext.cs" />
+    <Compile Include="FFmpeg\AVFormat.cs" />
+    <Compile Include="FFmpeg\AVFormatContext.cs" />
+    <Compile Include="FFmpeg\AVFormatParameters.cs" />
+    <Compile Include="FFmpeg\AVFrac.cs" />
+    <Compile Include="FFmpeg\AVFrame.cs" />
+    <Compile Include="FFmpeg\AVImageFormat.cs" />
+    <Compile Include="FFmpeg\AVImageInfo.cs" />
+    <Compile Include="FFmpeg\AVIndexEntry.cs" />
+    <Compile Include="FFmpeg\AVInputFormat.cs" />
+    <Compile Include="FFmpeg\AVOutputFormat.cs" />
+    <Compile Include="FFmpeg\AVPacket.cs" />
+    <Compile Include="FFmpeg\AVPacketList.cs" />
+    <Compile Include="FFmpeg\AVPaletteControl.cs" />
+    <Compile Include="FFmpeg\AVPanScan.cs" />
+    <Compile Include="FFmpeg\AVPicture.cs" />
+    <Compile Include="FFmpeg\AVProbeData.cs" />
+    <Compile Include="FFmpeg\AVRational.cs" />
+    <Compile Include="FFmpeg\AVStream.cs" />
+    <Compile Include="FFmpeg\AVSubtitle.cs" />
+    <Compile Include="FFmpeg\AVSubtitleRect.cs" />
+    <Compile Include="FFmpeg\AVSWScale.cs" />
+    <Compile Include="FFmpeg\AVUtil.cs" />
+    <Compile Include="FFmpeg\ByteIOContext.cs" />
+    <Compile Include="FFmpeg\CodecID.cs" />
+    <Compile Include="FFmpeg\CodecType.cs" />
+    <Compile Include="FFmpeg\Packet.cs" />
+    <Compile Include="FFmpeg\PixelFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FFmpeg\RcOverride.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="libavnet.dll.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
