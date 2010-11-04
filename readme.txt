@@ -1,4 +1,5 @@
 libav.net is a library containing two wrappers for FFmpeg (specifically libavcodec, libavformat, libavutil and libavswscale).
+libav.net does not include a redistribution for these libraries, you will have to obtain them yourself.
 
 The primary wrapper is a cleaned up wrapper exposing no unsafeness or pointers to the developer. The idea is to make FFmpeg
 sane to use under .NET.

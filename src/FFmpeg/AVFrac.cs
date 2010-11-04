@@ -22,21 +22,15 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System;
 using System.Runtime.InteropServices;
 
 namespace libavnet
 {
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential)]
 	public struct AVFrac
 	{
-		[MarshalAs(UnmanagedType.I8)]
-		public Int64 val;
-
-		[MarshalAs(UnmanagedType.I8)]
-		public Int64 num;
-
-		[MarshalAs(UnmanagedType.I8)]
-		public Int64 den;
+		public long val;
+		public long num;
+		public long den;
 	}
 }
