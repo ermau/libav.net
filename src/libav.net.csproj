@@ -75,7 +75,7 @@
     <Compile Include="FFmpeg\ByteIOContext.cs" />
     <Compile Include="FFmpeg\CodecID.cs" />
     <Compile Include="FFmpeg\CodecType.cs" />
-    <Compile Include="FFmpeg\Packet.cs" />
+    <Compile Include="Packet.cs" />
     <Compile Include="FFmpeg\PixelFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FFmpeg\RcOverride.cs" />
