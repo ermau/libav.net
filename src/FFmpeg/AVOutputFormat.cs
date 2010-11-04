@@ -27,20 +27,13 @@ using System.Runtime.InteropServices;
 
 namespace libavnet
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public struct AVOutputFormat
+	[StructLayout (LayoutKind.Sequential)]
+	public unsafe struct AVOutputFormat
 	{
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string name;
-
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string long_name;
-
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string mime_type;
-
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string extensions;
+		public byte* name;
+		public byte* long_name;
+		public byte* mime_types;
+		public byte* extensions;
 
 		public int priv_data_size;
 
@@ -48,22 +41,22 @@ namespace libavnet
 
 		public CodecID video_codec;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.WriteHeader write_header;
+		//public FFmpeg.WriteHeader write_header;
+		public IntPtr write_header;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.WritePacket write_packet;
+		//public FFmpeg.WritePacket write_packet;
+		public IntPtr write_packet;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.WriteTrailer write_trailer;
+		//public FFmpeg.WriteTrailer write_trailer;
+		public IntPtr write_trailer;
 
 		public int flags;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.SetParametersCallback set_parameters;
+		//public FFmpeg.SetParametersCallback set_parameters;
+		public IntPtr set_parameters;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.InterleavePacketCallback interleave_packet;
+		//public FFmpeg.InterleavePacketCallback interleave_packet;
+		public IntPtr interleave_packet;
 
 		public IntPtr nextAVOutputFormat;
 	}

@@ -63,15 +63,15 @@ namespace libavnet
 
 		public int ctx_flags;
 		public IntPtr packet_buffer;
-		public Int64 start_time;
-		public Int64 duration;
-		public Int64 file_size;
+		public long start_time;
+		public long duration;
+		public long file_size;
 		public int bit_rate;
 		public IntPtr cur_st;
 		public IntPtr cur_ptr;
 		public int cur_len;
 		public AVPacket cur_pkt;
-		public Int64 data_offset;
+		public long data_offset;
 		public int index_built;
 		public int mux_rate;
 		public int packet_size;
@@ -89,5 +89,5 @@ namespace libavnet
 		public CodecID video_codec_id;
 		public CodecID audio_codec_id;
 		public CodecID subtitle_codec_id;
-	};
+	}
 }

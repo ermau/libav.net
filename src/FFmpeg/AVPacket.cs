@@ -27,36 +27,20 @@ using System.Runtime.InteropServices;
 
 namespace libavnet
 {
-	[StructLayout(LayoutKind.Sequential)]
+	[StructLayout (LayoutKind.Sequential)]
 	public struct AVPacket
 	{
-		[MarshalAs(UnmanagedType.I8)]
-		public Int64 pts; // presentation time stamp in time_base units
-
-		[MarshalAs(UnmanagedType.I8)]
-		public Int64 dts; // decompression time stamp in time_base units
-
+		public long pts;
+		public long dts;
 		public IntPtr data;
-
-		[MarshalAs(UnmanagedType.I4)]
 		public int size;
-
-		[MarshalAs(UnmanagedType.I4)]
 		public int stream_index;
-
-		[MarshalAs(UnmanagedType.I4)]
 		public int flags;
-
-		[MarshalAs(UnmanagedType.I4)]
 		public int duration;
-
-		//[MarshalAs(UnmanagedType.FunctionPtr)]
+	
 		//public FFmpeg.DestructCallback destruct;
 		public IntPtr destruct;
-
 		public IntPtr priv;
-
-		[MarshalAs(UnmanagedType.I8)]
-		public Int64 pos;
+		public long pos;
 	}
 }

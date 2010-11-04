@@ -28,26 +28,26 @@ using System.Runtime.InteropServices;
 namespace libavnet
 {
 	[StructLayout (LayoutKind.Sequential)]
-	public struct AVCodecParserContext
+	public unsafe struct AVCodecParserContext
 	{
 		public IntPtr priv_data;
-		public IntPtr parser; // AVCodecParser *parser
-		[MarshalAs (UnmanagedType.I8)] public Int64 frame_offset; // offset of the current frame
-		[MarshalAs (UnmanagedType.I8)] public Int64 cur_offset; // current offset incremented by each av_parser_parse()
-		[MarshalAs (UnmanagedType.I8)] public Int64 last_frame_offset; // offset of the last frame
-		/* video info */
-		[MarshalAs (UnmanagedType.I4)] public int pict_type; /* XXX: put it back in AVCodecContext */
-		[MarshalAs (UnmanagedType.I4)] public int repeat_pict; /* XXX: put it back in AVCodecContext */
-		[MarshalAs (UnmanagedType.I8)] public Int64 pts; /* pts of the current frame */
-		[MarshalAs (UnmanagedType.I8)] public Int64 dts; /* dts of the current frame */
-		/* private data */
-		[MarshalAs (UnmanagedType.I8)] public Int64 last_pts;
-		[MarshalAs (UnmanagedType.I8)] public Int64 last_dts;
-		[MarshalAs (UnmanagedType.I4)] public int fetch_timestamp;
-		[MarshalAs (UnmanagedType.I4)] public int cur_frame_start_index;
-		[MarshalAs (UnmanagedType.ByValArray, SizeConst = FFmpeg.AV_PARSER_PTS_NB)] public Int64[] cur_frame_offset;
-		[MarshalAs (UnmanagedType.ByValArray, SizeConst = FFmpeg.AV_PARSER_PTS_NB)] public Int64[] cur_frame_pts;
-		[MarshalAs (UnmanagedType.ByValArray, SizeConst = FFmpeg.AV_PARSER_PTS_NB)] public Int64[] cur_frame_dts;
-		[MarshalAs (UnmanagedType.I4)] public int flags;
+		public AVCodecParser* parser;
+		public long frame_offset;
+		public long cur_offset;
+		public long last_frame_offset;
+		
+		public int pict_type;
+		public int repeat_pict;
+		public long pts;
+		public long dts;
+		
+		public long last_pts;
+		public long last_dts;
+		public int fetch_timestamp;
+		public int cur_frame_start_index;
+		public fixed long cur_frame_offset[FFmpeg.AV_PARSER_PTS_NB];
+		public fixed long cur_frame_pts[FFmpeg.AV_PARSER_PTS_NB];
+		public fixed long cur_frame_dts[FFmpeg.AV_PARSER_PTS_NB];
+		public int flags;
 	}
 }

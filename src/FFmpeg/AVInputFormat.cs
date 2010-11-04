@@ -27,49 +27,42 @@ using System.Runtime.InteropServices;
 
 namespace libavnet
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public struct AVInputFormat
+	[StructLayout (LayoutKind.Sequential)]
+	public unsafe struct AVInputFormat
 	{
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string name;
-
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string long_name;
-
+		public byte* name;
+		public byte* long_name;
 		public int priv_data_size;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadProbeCallback read_probe;
+		//public FFmpeg.ReadProbeCallback read_probe;
+		public IntPtr read_probe;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadHeaderCallback read_header;
+		//public FFmpeg.ReadHeaderCallback read_header;
+		public IntPtr read_header;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadPacketCallback read_packet;
+		//public FFmpeg.ReadPacketCallback read_packet;
+		public IntPtr read_packet;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadCloseCallback read_close;
+		//public FFmpeg.ReadCloseCallback read_close;
+		public IntPtr read_close;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadSeekCallback read_seek;
+		//public FFmpeg.ReadSeekCallback read_seek;
+		public IntPtr read_seek;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadTimestampCallback read_timestamp;
+		//public FFmpeg.ReadTimestampCallback read_timestamp;
+		public IntPtr read_timestamp;
 
 		// can use flags: AVFMT_NOFILE, AVFMT_NEEDNUMBER
 		public int flags;
-
-		[MarshalAs(UnmanagedType.LPStr)]
-		public string extensions;
-
+		public byte* extensions;
 		public int value;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadPlayCallback read_play;
+		//public FFmpeg.ReadPlayCallback read_play;
+		public IntPtr read_play;
 
-		[MarshalAs(UnmanagedType.FunctionPtr)]
-		public FFmpeg.ReadPauseCallback read_pause;
+		//public FFmpeg.ReadPauseCallback read_pause;
+		public IntPtr read_pause;
 
 		public IntPtr nextAVInputFormat;
-	};
+	}
 }
