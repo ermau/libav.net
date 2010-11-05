@@ -38,11 +38,9 @@ namespace libavnet
 			Author = Marshal.PtrToStringAnsi (new IntPtr (this.format->author));
 			Copyright = Marshal.PtrToStringAnsi (new IntPtr (this.format->copyright));
 
-			List<MediaStream> streams = new List<MediaStream> (this.format->nb_streams);
+			this.streams = new List<MediaStream> (this.format->nb_streams);
 			for (int i = 0; i < this.format->nb_streams; ++i)
-				streams.Add (new MediaStream (new IntPtr (this.format->streams[i])));
-
-			Streams = streams;
+				this.streams.Add (new MediaStream (new IntPtr (this.format->streams[i])));
 		}
 
 		public string Title
@@ -85,11 +83,11 @@ namespace libavnet
 
 		public IEnumerable<MediaStream> Streams
 		{
-			get;
-			private set;
+			get { return this.streams; }
 		}
 
 		private readonly AVFormatContext* format;
 		private readonly IntPtr ptr;
+		private readonly List<MediaStream> streams;
 	}
 }
