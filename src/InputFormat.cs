@@ -22,38 +22,61 @@
 // SOFTWARE.
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace libavnet
 {
-	public unsafe class Packet
-		: IDisposable
+	public unsafe class InputFormat
+		: Format, IDisposable
 	{
-		private readonly IntPtr avPacket;
-		private AVPacket* packet;
-
-		internal Packet (IntPtr avPacket)
+		internal InputFormat (IntPtr pInput)
 		{
-			if (avPacket == IntPtr.Zero)
-				throw new ArgumentException ("Null pointer", "avPacket");
+			if (pInput == IntPtr.Zero)
+				throw new ArgumentException ("Null pointer", "pInput");
 
-			this.avPacket = avPacket;
-			packet = (AVPacket*)avPacket.ToPointer();
+			this.pInput = pInput;
+			this.format = (AVInputFormat*)pInput;
+
+			Names = Marshal.PtrToStringAnsi (new IntPtr (this.format->name));
+			Description = Marshal.PtrToStringAnsi (new IntPtr (this.format->long_name));
 		}
 
+		public Packet ReadPacket()
+		{
+			IntPtr pptr;
+			FFmpeg.av_read_frame (this.pInput, out pptr).ThrowIfError();
+
+			return new Packet (pptr);
+		}
+
+		#region Cleanup
 		public void Dispose()
 		{
 			Dispose (true);
 			GC.SuppressFinalize (this);
 		}
 
-		protected virtual void Dispose (bool disposing)
+		protected void Dispose (bool disposing)
 		{
-			FFmpeg.av_free_packet (this.avPacket);
+			if (this.disposed)
+				return;
+
+			this.disposed = true;
+
+			FFmpeg.ReadCloseCallback close =
+				(FFmpeg.ReadCloseCallback)Marshal.GetDelegateForFunctionPointer (this.format->read_close, typeof (FFmpeg.ReadCloseCallback));
+
+			close (this.pInput);
 		}
 
-		~Packet()
+		~InputFormat()
 		{
 			Dispose (false);
 		}
+		#endregion
+
+		private bool disposed;
+		private readonly IntPtr pInput;
+		private readonly AVInputFormat* format;
 	}
 }

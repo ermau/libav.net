@@ -22,38 +22,61 @@
 // SOFTWARE.
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace libavnet
 {
-	public unsafe class Packet
-		: IDisposable
+	public unsafe class OutputFormat
+		: Format, IDisposable
 	{
-		private readonly IntPtr avPacket;
-		private AVPacket* packet;
-
-		internal Packet (IntPtr avPacket)
+		internal OutputFormat (IntPtr pFormat)
 		{
-			if (avPacket == IntPtr.Zero)
-				throw new ArgumentException ("Null pointer", "avPacket");
+			if (pFormat == IntPtr.Zero)
+				throw new ArgumentException ("Null pointer");
 
-			this.avPacket = avPacket;
-			packet = (AVPacket*)avPacket.ToPointer();
+			this.pFormat = pFormat;
+			this.format = (AVOutputFormat*)pFormat;
+			Names = Marshal.PtrToStringAnsi (new IntPtr (this.format->name));
+			Description = Marshal.PtrToStringAnsi (new IntPtr (this.format->long_name));
 		}
 
+		public CodecID AudioCodec
+		{
+			get { return this.format->audio_codec; }
+		}
+
+		public CodecID VideoCodec
+		{
+			get { return this.format->video_codec; }
+		}
+
+		#region Cleanup
 		public void Dispose()
 		{
 			Dispose (true);
 			GC.SuppressFinalize (this);
 		}
 
-		protected virtual void Dispose (bool disposing)
+		protected void Dispose (bool disposing)
 		{
-			FFmpeg.av_free_packet (this.avPacket);
 		}
 
-		~Packet()
+		~OutputFormat()
 		{
 			Dispose (false);
+		}
+		#endregion
+
+		private readonly IntPtr pFormat;
+		private readonly AVOutputFormat* format;
+
+		public static OutputFormat Guess (string path)
+		{
+			IntPtr pFormat = FFmpeg.guess_format (null, path, null);
+			if (pFormat == IntPtr.Zero)
+				return null;
+
+			return new OutputFormat (pFormat);
 		}
 	}
 }

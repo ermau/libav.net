@@ -25,35 +25,35 @@ using System;
 
 namespace libavnet
 {
-	public unsafe class Packet
-		: IDisposable
+	public unsafe class CodecContext
 	{
-		private readonly IntPtr avPacket;
-		private AVPacket* packet;
+		private IntPtr ptr;
+		private AVCodecContext* context;
 
-		internal Packet (IntPtr avPacket)
+		internal CodecContext (IntPtr ptr)
 		{
-			if (avPacket == IntPtr.Zero)
-				throw new ArgumentException ("Null pointer", "avPacket");
-
-			this.avPacket = avPacket;
-			packet = (AVPacket*)avPacket.ToPointer();
+			this.ptr = ptr;
+			this.context = (AVCodecContext*)ptr;
 		}
 
-		public void Dispose()
+		public CodecID Codec
 		{
-			Dispose (true);
-			GC.SuppressFinalize (this);
+			get { return this.context->codec_id; }
 		}
 
-		protected virtual void Dispose (bool disposing)
+		public SampleFormat SampleFormat
 		{
-			FFmpeg.av_free_packet (this.avPacket);
+			get { return this.context->sample_fmt; }
 		}
 
-		~Packet()
+		public int SampleRate
 		{
-			Dispose (false);
+			get { return this.context->sample_rate; }
+		}
+
+		public int FrameSize
+		{
+			get { return this.context->frame_size; }
 		}
 	}
 }

@@ -22,38 +22,19 @@
 // SOFTWARE.
 
 using System;
+using System.IO;
 
 namespace libavnet
 {
-	public unsafe class Packet
-		: IDisposable
+	public static class Media
 	{
-		private readonly IntPtr avPacket;
-		private AVPacket* packet;
-
-		internal Packet (IntPtr avPacket)
+		public static FormatContext Open (FileInfo file)
 		{
-			if (avPacket == IntPtr.Zero)
-				throw new ArgumentException ("Null pointer", "avPacket");
-
-			this.avPacket = avPacket;
-			packet = (AVPacket*)avPacket.ToPointer();
-		}
-
-		public void Dispose()
-		{
-			Dispose (true);
-			GC.SuppressFinalize (this);
-		}
-
-		protected virtual void Dispose (bool disposing)
-		{
-			FFmpeg.av_free_packet (this.avPacket);
-		}
-
-		~Packet()
-		{
-			Dispose (false);
+			IntPtr formatPtr;
+			FFmpeg.av_open_input_file (out formatPtr, file.FullName, IntPtr.Zero, 0, IntPtr.Zero).ThrowIfError();
+			FFmpeg.av_find_stream_info (formatPtr).ThrowIfError();
+			
+			return new FormatContext (formatPtr);
 		}
 	}
 }

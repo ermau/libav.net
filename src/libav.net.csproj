@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodecContext.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FFmpeg\AVBitStreamFilter.cs" />
     <Compile Include="FFmpeg\AVBitStreamFilterContext.cs" />
@@ -75,6 +76,12 @@
     <Compile Include="FFmpeg\ByteIOContext.cs" />
     <Compile Include="FFmpeg\CodecID.cs" />
     <Compile Include="FFmpeg\CodecType.cs" />
+    <Compile Include="Format.cs" />
+    <Compile Include="FormatContext.cs" />
+    <Compile Include="InputFormat.cs" />
+    <Compile Include="Media.cs" />
+    <Compile Include="MediaStream.cs" />
+    <Compile Include="OutputFormat.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="FFmpeg\PixelFormat.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

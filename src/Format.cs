@@ -22,38 +22,29 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace libavnet
 {
-	public unsafe class Packet
-		: IDisposable
+	public abstract class Format
 	{
-		private readonly IntPtr avPacket;
-		private AVPacket* packet;
-
-		internal Packet (IntPtr avPacket)
+		/// <summary>
+		/// Gets a comma separated list of short names for the format.
+		/// </summary>
+		public string Names
 		{
-			if (avPacket == IntPtr.Zero)
-				throw new ArgumentException ("Null pointer", "avPacket");
-
-			this.avPacket = avPacket;
-			packet = (AVPacket*)avPacket.ToPointer();
+			get;
+			protected set;
 		}
 
-		public void Dispose()
+		/// <summary>
+		/// Gets the description of the format.
+		/// </summary>
+		public string Description
 		{
-			Dispose (true);
-			GC.SuppressFinalize (this);
-		}
-
-		protected virtual void Dispose (bool disposing)
-		{
-			FFmpeg.av_free_packet (this.avPacket);
-		}
-
-		~Packet()
-		{
-			Dispose (false);
+			get;
+			protected set;
 		}
 	}
 }

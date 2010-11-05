@@ -20,24 +20,57 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
-
 using System;
+using System.Runtime.InteropServices;
 
 namespace libavnet
 {
-	public unsafe class Packet
+	public unsafe class MediaStream
 		: IDisposable
 	{
-		private readonly IntPtr avPacket;
-		private AVPacket* packet;
+		private readonly IntPtr ptr;
+		private AVStream* stream;
 
-		internal Packet (IntPtr avPacket)
+		internal MediaStream (IntPtr ptr)
 		{
-			if (avPacket == IntPtr.Zero)
-				throw new ArgumentException ("Null pointer", "avPacket");
+			if (ptr == IntPtr.Zero)
+				throw new ArgumentException ("Null pointer");
 
-			this.avPacket = avPacket;
-			packet = (AVPacket*)avPacket.ToPointer();
+			this.ptr = ptr;
+			this.stream = (AVStream*)ptr;
+
+			Language = Marshal.PtrToStringAnsi (new IntPtr (this.stream->language));
+			CodecContext = new CodecContext ((IntPtr)this.stream->codec);
+		}
+
+		public CodecContext CodecContext
+		{
+			get;
+			private set;
+		}
+
+		public AVRational BaseFrameRate
+		{
+			get { return this.stream->r_frame_rate; }
+		}
+
+		public long StartTime
+		{
+			get { return this.stream->start_time; }
+		}
+
+		public long Duration
+		{
+			get { return this.stream->duration; }
+		}
+
+		/// <summary>
+		/// Gets a ISO 639-2/B 3-letter language code (or empty if undefined).
+		/// </summary>
+		public string Language
+		{
+			get;
+			private set;
 		}
 
 		public void Dispose()
@@ -46,14 +79,13 @@ namespace libavnet
 			GC.SuppressFinalize (this);
 		}
 
-		protected virtual void Dispose (bool disposing)
-		{
-			FFmpeg.av_free_packet (this.avPacket);
-		}
-
-		~Packet()
+		~MediaStream()
 		{
 			Dispose (false);
+		}
+
+		private void Dispose (bool disposing)
+		{
 		}
 	}
 }
