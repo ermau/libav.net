@@ -700,6 +700,6 @@ of only at frame boundaries */
 		public IntPtr flush;
 
 		public IntPtr supported_framerates;
-		public IntPtr pix_fmts; // enum PixelFormat *pix_fmts
-	} ;
+		public PixelFormat* pix_fmts; // enum PixelFormat *pix_fmts
+	}
 }
