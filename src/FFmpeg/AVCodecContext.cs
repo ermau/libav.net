@@ -38,7 +38,7 @@ namespace libavnet
 
 	public unsafe struct AVCodecContext
 	{
-		public IntPtr av_class;
+		public AVClass* av_class;
 		public int bit_rate;
 		public int bit_rate_tolerance;
 		public int flags;
@@ -97,8 +97,8 @@ namespace libavnet
 		public int frame_bits;
 		public IntPtr opaque;
 		public fixed byte codec_name [32];
-		public CodecType codec_type; /* see CODEC_TYPE_xxx */
-		public CodecID codec_id; /* see CODEC_ID_xxx */
+		public CodecType codec_type;
+		public CodecID codec_id;
 
 		public uint codec_tag;
 		public int workaround_bugs;
@@ -119,19 +119,15 @@ namespace libavnet
 		public int parse_only;
 		public int mpeg_quant;
 
-		//[MarshalAs (UnmanagedType.LPStr)] public string stats_out; // char* stats_out
 		public byte* stats_out;
-
-		//public string stats_in;
 		public byte* stats_in;
 
 		public float rc_qsquish;
 		public float rc_qmod_amp;
 		public int rc_qmod_freq;
-		public IntPtr rc_override; // RcOverride* rc_override;
+		public RcOverride* rc_override;
 		public int rc_override_count;
 
-		//[MarshalAs (UnmanagedType.LPStr)] public string rc_eq;
 		public byte* rc_eq;
 
 		public int rc_max_rate;
@@ -160,12 +156,7 @@ namespace libavnet
 		public int debug;
 		public int debug_mv;
 		
-		//[MarshalAs (UnmanagedType.ByValArray, SizeConst = 4)] public Int64[] error;
-		#if !X64
-		public fixed int error [4];
-		#else
 		public fixed long error[4];
-		#endif
 
 		public int mb_qmin;
 		public int mb_qmax;
@@ -201,7 +192,7 @@ namespace libavnet
 		public int scenechange_threshold;
 		public int lmin;
 		public int lmax;
-		public IntPtr palctrl; // AVPaletteControl *palctrl;
+		public AVPaletteControl* palctrl; // AVPaletteControl *palctrl;
 		public int noise_reduction;
 		
 		//public FFmpeg.RegetBufferCallback reget_buffer;
