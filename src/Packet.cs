@@ -29,15 +29,24 @@ namespace libavnet
 		: IDisposable
 	{
 		private readonly IntPtr avPacket;
+		private readonly MediaStream stream;
 		private AVPacket* packet;
 
-		internal Packet (IntPtr avPacket)
+		internal Packet (IntPtr avPacket, MediaStream stream)
 		{
+			if (stream == null)
+				throw new ArgumentNullException ("stream");
 			if (avPacket == IntPtr.Zero)
 				throw new ArgumentException ("Null pointer", "avPacket");
 
 			this.avPacket = avPacket;
+			this.stream = stream;
 			packet = (AVPacket*)avPacket.ToPointer();
+		}
+
+		public MediaStream Stream
+		{
+			get { return this.stream; }
 		}
 
 		public void Dispose()

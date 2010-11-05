@@ -41,14 +41,6 @@ namespace libavnet
 			Description = Marshal.PtrToStringAnsi (new IntPtr (this.format->long_name));
 		}
 
-		public Packet ReadPacket()
-		{
-			IntPtr pptr;
-			FFmpeg.av_read_frame (this.pInput, out pptr).ThrowIfError();
-
-			return new Packet (pptr);
-		}
-
 		#region Cleanup
 		public void Dispose()
 		{

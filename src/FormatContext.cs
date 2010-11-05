@@ -86,6 +86,19 @@ namespace libavnet
 			get { return this.streams; }
 		}
 
+		public bool ReadPacket (out Packet packet)
+		{
+			packet = null;
+
+			IntPtr pptr;
+			if (FFmpeg.av_read_frame (this.ptr, out pptr) < 0)
+				return false;
+
+			AVPacket* p = (AVPacket*)pptr;
+			packet = new Packet (pptr, this.streams[p->stream_index]);
+			return true;
+		}
+
 		private readonly AVFormatContext* format;
 		private readonly IntPtr ptr;
 		private readonly List<MediaStream> streams;
