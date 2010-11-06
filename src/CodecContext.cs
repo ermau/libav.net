@@ -27,18 +27,66 @@ namespace libavnet
 {
 	public unsafe class CodecContext
 	{
-		private IntPtr ptr;
-		private AVCodecContext* context;
+		internal readonly IntPtr ptr;
+		private readonly AVCodecContext* context;
+
+		private bool lookedForEncoder;
+		private Codec encoder;
+		private bool lookedForDecoder;
+		private Codec decoder;
 
 		internal CodecContext (IntPtr ptr)
 		{
+			if (ptr == IntPtr.Zero)
+				throw new ArgumentException ("Null pointer");
+
 			this.ptr = ptr;
 			this.context = (AVCodecContext*)ptr;
 		}
 
-		public CodecID Codec
+		public CodecID CodecID
 		{
 			get { return this.context->codec_id; }
+		}
+
+		public Codec Decoder
+		{
+			get
+			{
+				if (!this.lookedForDecoder)
+				{
+					IntPtr dptr = FFmpeg.avcodec_find_decoder (this.context->codec_id);
+					if (dptr != IntPtr.Zero)
+					{
+						FFmpeg.avcodec_open (this.ptr, dptr).ThrowIfError();
+						this.decoder = new Codec (dptr, this);
+					}
+
+					this.lookedForDecoder = true;
+				}
+
+				return this.decoder;
+			}
+		}
+
+		public Codec Encoder
+		{
+			get
+			{
+				if (!this.lookedForEncoder)
+				{
+					IntPtr eptr = FFmpeg.avcodec_find_encoder (this.context->codec_id);
+					if (eptr != IntPtr.Zero)
+					{
+						FFmpeg.avcodec_open (this.ptr, eptr).ThrowIfError();
+						this.encoder = new Codec (eptr, this);
+					}
+
+					this.lookedForEncoder = true;
+				}
+
+				return this.encoder;
+			}
 		}
 
 		public SampleFormat SampleFormat

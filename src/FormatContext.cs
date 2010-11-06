@@ -90,12 +90,12 @@ namespace libavnet
 		{
 			packet = null;
 
-			IntPtr pptr;
-			if (FFmpeg.av_read_frame (this.ptr, out pptr) < 0)
+			IntPtr pptr = Marshal.AllocHGlobal (sizeof (AVPacket));
+
+			if (FFmpeg.av_read_frame (this.ptr, pptr) < 0)
 				return false;
 
-			AVPacket* p = (AVPacket*)pptr;
-			packet = new Packet (pptr, this.streams[p->stream_index]);
+			packet = new Packet (pptr, this.streams[((AVPacket*)pptr)->stream_index]);
 			return true;
 		}
 

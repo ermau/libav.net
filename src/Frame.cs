@@ -22,36 +22,17 @@
 // SOFTWARE.
 
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace libavnet
 {
-	public unsafe class Packet
+	public class Frame
 		: IDisposable
 	{
-		private readonly IntPtr avPacket;
-		private readonly MediaStream stream;
-		internal readonly AVPacket* packet;
-
-		internal Packet (IntPtr avPacket, MediaStream stream)
+		public Frame()
 		{
-			if (stream == null)
-				throw new ArgumentNullException ("stream");
-			if (avPacket == IntPtr.Zero)
-				throw new ArgumentException ("Null pointer", "avPacket");
-
-			this.avPacket = avPacket;
-			this.stream = stream;
-			packet = (AVPacket*)avPacket.ToPointer();
-		}
-
-		public MediaStream Stream
-		{
-			get { return this.stream; }
-		}
-
-		public int Size
-		{
-			get { return this.packet->size; }
+			this.ptr = FFmpeg.avcodec_alloc_frame();
 		}
 
 		public void Dispose()
@@ -60,14 +41,21 @@ namespace libavnet
 			GC.SuppressFinalize (this);
 		}
 
-		protected virtual void Dispose (bool disposing)
-		{
-			//FFmpeg.av_free_packet (this.avPacket);
-		}
-
-		~Packet()
+		~Frame()
 		{
 			Dispose (false);
+		}
+
+		private bool disposed;
+		private readonly IntPtr ptr;
+
+		private void Dispose (bool disposing)
+		{
+			if (this.disposed)
+				return;
+
+			this.disposed = true;
+			FFmpeg.av_free (this.ptr);
 		}
 	}
 }
